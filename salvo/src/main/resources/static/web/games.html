@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Salvo!</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+<body class="container-fluid">
+    <header class="row justify-content-center">
+        <a><img class="shipIcon" src="img/ship3.png"  alt="ship"></a>
+        <h1 class="title">Salvo Game</h1>
+        <h2></h2>
+    </header>
+    <div id="loginBlock" class="row">
+        <div class="col col-md-6">
+                <div class="currentPlayerContainer">Current player: <span id="currentPlayer"></span><form class="form" id="logout-form" onsubmit="return false">
+                    <button type="submit" class="form-control">Log out</button></form>
+                </div>
+                <div class="currentPlayerContainer"><form class="form" id="newGame-form" onsubmit="return false">
+                    <button type="submit" class="form-control">New Game</button></form>
+                </div>
+                <div>
+                    <form class="form col-md-11 text-center" id="login-form" onsubmit="return false">
+                        <label for="username">Name:</label><input class="form-control" id="username" type="email" name="username" required>
+                        <label for="password">Password:</label><input class="form-control" id="password" type="password" name="password" required>
+                        <input type="submit" class="form-control submitbutton" name="login" value="Login" />
+                        <input type="submit" class="form-control submitbutton" name="signup" value="Sign Up" />
+                    </form>
+                </div>
+            <h3 id="signupSuccess" class="textCenter">Player created Successfully!</h3>
+            <h3 id="errorSignup" class="textCenter"></h3>
+            <h3 id="loginSuccess" class="textCenter">Login Successful!</h3>
+            <h3 id="loginFailed" class="textCenter">Login failed! Bad credentials!</h3>
+            <h3 id="logoutSuccess" class="textCenter">Logout Successful!</h3>
+            <h3 id="gameCreatedSuccess" class="textCenter">Game Created Successfully! Redirecting to Game Page...</h3>
+            <h3 id="gameJoinedSuccess" class="textCenter">Game Joined Successfully! Redirecting to Game Page...</h3>
+        </div>
+
+    <!--<form class="textCenter" id="createGame" onsubmit="return false">
+        <button type="submit" class="btn btn-warning">CREATE NEW GAME</button>
+    </form>-->
+        <div class="col col-md-6">
+            <div class="textCenter whiteColor"><h2>GAME LIST</h2></div>
+            <div>
+                <table class="table table-striped whiteColor" id="gamesList">
+                    <thead>
+                    <tr><th class="col textCenter">Game ID</th><th scope="col">Created</th><th scope="col">Player 1</th><th scope="col">Player 2</th><th class="col textCenter">Game Actions</th></tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="textCenter whiteColor"><h2>LEADERBOARD</h2></div>
+            <div>
+                <table class="table table-striped whiteColor" id="scoreBoard">
+                    <thead>
+                    <tr><th scope="col">Name</th><th class="col textCenter">Total Score</th><th class="col textCenter">Won</th><th class="col textCenter">Lost</th><th class="col textCenter">Tied</th></tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<script src="./js/popper.min.js"></script>
+  <script src="./js/jquery-3.3.1.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <script src="./js/games.js"></script>
+</body>
+</html>
