@@ -44,8 +44,6 @@ public class SalvoController {
     public Map<String, Object> getGameAll(Authentication    authentication){
     Map<String, Object> dto = new   LinkedHashMap<>();
 
-
-
         if(isGuest(authentication)){
             dto.put("player",  "Guest" );
         }else{
@@ -53,13 +51,10 @@ public class SalvoController {
             dto.put("player",  player.makePlayerDTO() );
         }
 
-
         dto.put("games",    gameRepository.findAll()
                 .stream()
                 .map(game -> game.makeGameDTO())
                 .collect(Collectors.toList()));
-
-
         return dto;
     }
 
@@ -94,12 +89,9 @@ public class SalvoController {
                 .stream()
                 .map(player  ->  player.makePlayerScoreDTO())
                 .collect(Collectors.toList());
-
-
     }
 
     private boolean isGuest(Authentication authentication) {
         return authentication == null || authentication instanceof AnonymousAuthenticationToken;
     }
-
 }

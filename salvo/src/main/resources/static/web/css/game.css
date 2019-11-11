@@ -1,3 +1,61 @@
+body{
+    background: url(../img/battleshipInside.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+    font-family: 'Dosis', sans-serif;
+}
+
+.shipIcon {
+    width: 15vw;
+    max-width:190px;
+    height: auto;
+}
+
+header {
+    background-color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 4em;
+}
+
+.title {
+    font-size: 10vw;
+    font-family: Trattatello, fantasy;
+}
+
+.backgroundGrid{
+    background-color: rgba(223, 215, 215, 0.4);
+    border-radius: 25px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.exitGame{
+    text-decoration: none;
+    text-style: none;
+    width:90%;
+    height:100%;
+    border: 1.5px solid;
+    border-radius: 25px;
+    background-color: transparent;
+    margin: 5px;
+    border-color: #1a1a1a;
+    color: #1a1a1a;
+    justify-content: center;
+}
+
+.exitGame:hover{
+    text-decoration: none;
+    width:90%;
+    height:100%;
+    border-radius: 25px;
+    margin: 5px;
+    background-color: rgba(223, 215, 215, 0.2);
+    color: #353535;
+}
+
 .ship-piece{
     background-color: mediumpurple;
 }
