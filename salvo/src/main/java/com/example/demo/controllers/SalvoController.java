@@ -1,14 +1,12 @@
 package com.example.demo.controllers;
 
+        import com.example.demo.models.Game;
         import com.example.demo.models.GamePlayer;
         import com.example.demo.models.Player;
         import com.example.demo.repositories.GamePlayerRepository;
         import com.example.demo.repositories.GameRepository;
 
-        import java.util.HashMap;
-        import java.util.LinkedHashMap;
-        import java.util.List;
-        import java.util.Map;
+        import java.util.*;
         import java.util.function.Function;
         import java.util.stream.Collectors;
 
@@ -59,10 +57,13 @@ public class SalvoController {
     }
 
     @RequestMapping("/game_view/{nn}")
-    public  Map<String, Object> getGameViewByGamePlayerID(@PathVariable Long nn){
+    private  Map<String, Object> getGameViewByGamePlayerID(@PathVariable Long nn){
         GamePlayer gamePlayer = gamePlayerRepository.findById(nn).get();
 
         Map<String, Object> dto = new LinkedHashMap<>();
+        Map<String, Object> hits = new LinkedHashMap<>();
+            hits.put("self", new ArrayList<>());
+            hits.put("opponent", new ArrayList<>());
             dto.put("id", gamePlayer.getGame().getId());
             dto.put("created", gamePlayer.getGame().getCreationDate());
             dto.put("gamePlayers", gamePlayer.getGame().getGamePlayers()
@@ -79,7 +80,41 @@ public class SalvoController {
                                                                                     .stream()
                                                                                     .map(salvo -> salvo.makeSalvoDTO()))
                                                     .collect(Collectors.toList()));
+            dto.put("hits", hits);
         return dto;
+    }
+
+    private Map<String, Object> makeMap(String key, Object value){
+        Map<String, Object> map = new HashMap<>();
+        map.put(key, value);
+        return map;
+    }
+
+    @RequestMapping(path = "/game/{gameID}/players", method = RequestMethod.POST)
+    public ResponseEntity<Map<String, Object>> joinGame(@PathVariable long gameID, Authentication authentication) {
+        if (isGuest(authentication)) {
+            return new ResponseEntity<>(makeMap("error", "You can´t join a game if you are not logged in!"), HttpStatus.UNAUTHORIZED);
+        }
+
+        Player player = playerRepository.findByEmail(authentication.getName());
+        Game gameToJoin = gameRepository.getOne(gameID);
+
+        if (gameRepository.getOne(gameID) == null){
+            return new ResponseEntity<>(makeMap("error", "No such game."), HttpStatus.FORBIDDEN);
+        }
+
+        if (player == null){
+            return new ResponseEntity<>(makeMap("error", "No such game."), HttpStatus.FORBIDDEN);
+        }
+
+        long gamePlayersCount = gameToJoin.getGamePlayers().size();
+
+        if (gamePlayersCount == 1){
+            GamePlayer gamePlayer = gamePlayerRepository.save(new GamePlayer(player, gameToJoin));
+            return  new ResponseEntity<>(makeMap("gpid", gamePlayer.getId()),HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(makeMap("error", "Game is full!"), HttpStatus.FORBIDDEN);
+        }
     }
 
     @RequestMapping("/leaderBoard")
