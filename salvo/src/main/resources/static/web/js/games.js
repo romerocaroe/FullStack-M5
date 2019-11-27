@@ -161,12 +161,14 @@ function updateView() {
         if (data.player == "Guest") {
             $('#currentPlayer').text(data.player);
             $('#logout-form').hide("slow");
+            $('#createGame').hide("slow");
             $('#newGame-form').hide("slow");
             $('#login-form').show("slow");
 
         } else {
             $('#currentPlayer').text(data.player.email);
             $('#login-form').hide("slow");
+            $('#createGame').show("slow");
             $('#logout-form').show("slow");
             $('#newGame-form').show("slow");
 
@@ -230,7 +232,7 @@ function showGamesTable(gamesData) {
             .done(function (data) {
                 console.log(data);
                 console.log("game joined");
-                gameViewUrl = "/web/game_2.html?gp=" + data.gpid;
+                gameViewUrl = "/web/game.html?gp=" + data.gpid;
                 $('#gameJoinedSuccess').show("slow").delay(2000).hide("slow");
                 setTimeout(
                    function()
